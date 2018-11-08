@@ -17,6 +17,8 @@
 
 <script type="text/babel">
   import Emitter from 'element-ui/src/mixins/emitter';
+  /* eslint-disable */
+  import tool from "element-ui/src/utils/toPinYin";
   import { getValueByPath, escapeRegexpString } from 'element-ui/src/utils/util';
 
   export default {
@@ -135,7 +137,9 @@
       },
 
       queryChange(query) {
-        this.visible = new RegExp(escapeRegexpString(query), 'i').test(this.currentLabel) || this.created;
+        /* eslint-disable */
+        console.log(query);
+        this.visible = new RegExp(escapeRegexpString(query), 'i').test(this.currentLabel) || this.created || (tool.pinyin.getCamelChars(this.currentLabel).toLowerCase().indexOf(query.toLowerCase()) > -1);
         if (!this.visible) {
           this.select.filteredOptionsCount--;
         }
